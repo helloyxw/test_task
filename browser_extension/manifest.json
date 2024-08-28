@@ -1,0 +1,16 @@
+{
+  "manifest_version": 2,
+  "name": "DOM 变化跟踪器",
+  "version": "1.0",
+  "description": "跟踪网页 DOM 变化并发送通知到本地服务器",
+  "permissions": [
+    "activeTab",
+    "http://localhost:3000/"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}
