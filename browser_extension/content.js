@@ -5,17 +5,12 @@ const observer = new MutationObserver((mutations) => {
         changeType: mutation.type,
         timestamp: new Date().toISOString()
       };
-      fetch('http://localhost:3000/alert', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(notification),
-        mode: 'no-cors'
-      }).then(() => {
-        console.log('通知已发送');
-      }).catch((error) => {
-        console.error('发送通知时出错:', error);
+      chrome.runtime.sendMessage({action: 'sendNotification', data: notification}, response => {
+        if (response.success) {
+          console.log('通知已发送');
+        } else {
+          console.error('发送通知时出错:', response.error);
+        }
       });
     });
   });
